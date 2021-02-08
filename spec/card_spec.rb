@@ -16,10 +16,17 @@ describe Oystercard do
       expect(subject.top_up(50)).to eq(50)
     end
     it 'should raise error if limit is reached' do
-      expect {subject.top_up(91)}.to raise_error('ERROR: Cannot add. Balance will exceed 90')
+      MAX_BALANCE = Oystercard::MAX_BALANCE
+      subject.top_up(MAX_BALANCE)
+      expect {subject.top_up 1 }.to raise_error 'ERROR: Cannot add. Balance will exceed #{MAX_BALANCE}'
     end
   end
 
-  
+  describe '#deduct' do 
+    it 'should deduct money' do
+      subject.top_up(50)
+      expect(subject.deduct(10)).to eq(40)
+    end
+  end
 end 
 
