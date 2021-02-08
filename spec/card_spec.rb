@@ -28,5 +28,27 @@ describe Oystercard do
       expect(subject.deduct(10)).to eq(40)
     end
   end
+  
+  describe '#touch_in, #touch_out & in_journey?' do 
+    it "responds to touch_in" do 
+      expect(subject).to respond_to(:touch_in)
+      subject.top_up(50)
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end 
+    it "prvents touch in if balance below £1" do 
+      expect{subject.touch_in}.to raise_error("Insufficient Balance") 
+    end 
+    it "respond to touch_out" do 
+      expect(subject).to respond_to(:touch_out) 
+      subject.top_up(50)
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end 
+    it "responds to in_journey? " do 
+      expect(subject).to respond_to(:in_journey?)
+    end 
+  end
 end 
 
