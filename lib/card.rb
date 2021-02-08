@@ -18,11 +18,6 @@ class Oystercard
     return @balance
   end 
 
-  def deduct(amount)
-    @balance -= amount
-    return @balance
-  end
-
   def touch_in
     fail 'Insufficient Balance' if @balance < MIN_BALANCE
     @journey = true
@@ -30,10 +25,13 @@ class Oystercard
   
   def touch_out
     @journey = false
+    deduct(MIN_BALANCE)
   end 
 
-  
+  def deduct(amount)
+    @balance -= amount
+    return @balance
+  end
 
 end 
 
-# irb --> card.new --> card.topup(££) 
