@@ -1,10 +1,20 @@
-class Card 
+class Oystercard 
+  attr_reader :balance
+  CONSTANT = 90
+
+  def initialize
+    @balance = 0
+  end
+
   
-  def balance?
-  end 
-  
-  def add_money(amount)
-    return 1 
+  def top_up(amount)
+    fail 'ERROR: Cannot add. Balance will exceed 90' if @balance + amount >= 90
+    @balance += amount 
+    return @balance
+
   end 
 
+
 end 
+
+# irb --> card.new --> card.topup(££) 
